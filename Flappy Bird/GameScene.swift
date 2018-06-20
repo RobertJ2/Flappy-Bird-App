@@ -48,10 +48,19 @@ class GameScene: SKScene {
         
         bird = SKSpriteNode(texture: birdTexture)
         
+       
+        
+        
         bird.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         bird.run(makeBirdFlap)
         self.addChild(bird)
         
+        let ground = SKNode()
+        
+        ground.position = CGPoint(x: self.frame.midX, y: -self.frame.height / 2)
+        ground.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width, height: 1))
+        ground.physicsBody!.isDynamic = false
+        self.addChild(ground)
       
         
     }
@@ -60,7 +69,17 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-       
+        let birdTexture = SKTexture(imageNamed: "flappy1.png")
+        
+         bird.physicsBody = SKPhysicsBody(circleOfRadius: birdTexture.size().height / 2)
+        
+          bird.physicsBody!.velocity = CGVector(dx: 0, dy: 0)
+       // bird.physicsBody!.isDynamic = true
+        bird.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 100))
+     
+        
+        
+        
     }
     
     
